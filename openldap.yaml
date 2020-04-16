@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: openldap
+ labels:
+   app: openldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openldap
+  template:
+   metadata:
+     labels:
+       app: openldap
+   spec:
+     containers:
+       - image: default-route-openshift-image-registry.roks43-c0cf31a7105ba2e43673410c8b780e74-0000.hkg02.containers.appdomain.cloud/ldap/openldap:1.0.0
+         imagePullPolicy: Always
+         imagePullSecrets:
+         - name: ldapsecret
+         name: openldap
+         ports:
+           - containerPort: 389
+             protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+ labels:
+   app: openldap
+ name: ldap-service
+spec:
+ ports:
+   - name: openldap
+     port: 389
+ selector:
+   app: openldap
