@@ -7,3 +7,4 @@ I have just created my own bootstrapped schema for easy use and testing.
 
 If you want to use the pre-configured docker image directly you can find it here:  https://hub.docker.com/r/johnowebb/openldap/
 
+Installation script and yaml file
